@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 import math
 
 # Title
-st.title('Comparative Visualization of Constant and Linear Radius Growth Heat Sources')
+st.title('Comparative Visualization of  Heat Sources for Constant and Linear Growth of Beam Radius')
 
 # Define an expanded list of colormaps
 cmaps = [
