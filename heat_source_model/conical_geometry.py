@@ -40,10 +40,6 @@ globalmax_intensity = np.max(intensity_at_z0)
 st.write("### 3D Surface Plot at Selected Depth")
 z_selected = st.slider('Select z-depth (μm)', min_value=0.0, max_value=z_max, value=z_max/2, step=1.0)
 
-# Force z_selected to be exactly 0.0 if it is very close to zero. Maybe it will help 
-if abs(z_selected) < 1e-6:
-    z_selected = 0.0
-
 # Compute r(z) at selected z
 r_0_at_z = r_0_surface + z_selected * np.tan(np.deg2rad(theta))  
 
