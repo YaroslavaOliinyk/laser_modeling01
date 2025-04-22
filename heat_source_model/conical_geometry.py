@@ -41,7 +41,7 @@ st.write("### 3D Surface Plot at Selected Depth")
 z_selected = st.slider('Select z-depth (μm)', min_value=0.0, max_value=z_max, value=z_max/2, step=1.0)
 
 # Compute r(z) at selected z
-r_0_at_z = r_0_surface + z_selected * np.tan(np.deg2rad(theta))
+r_0_at_z = r_0_surface + z_selected * np.tan(np.deg2rad(theta))  
 intensity_at_z = conical_intensity(A, P, k, eta, r_0_at_z, C, x_values, y_values)
 
 # Create 3D surface plot
