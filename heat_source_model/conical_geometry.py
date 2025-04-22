@@ -18,14 +18,14 @@ C = st.sidebar.slider('C', min_value=0.1, max_value=4.0, value=2.0, step=0.1)
 colormap = st.sidebar.selectbox('Colormap', ['rainbow', 'jet', 'hsv', 'turbo'], index=0)
 z_max = st.sidebar.slider('Maximum Depth (z, μm)', min_value=50.0, max_value=1000.0, value=100.0, step=1.0)
 
-# Function to calculate 2D intensity distribution 
+# Function to calculate 2D intensity distribution (exponential decay)
 def conical_intensity(A, P, k, eta, r_0, C, x_values, y_values):
     x, y = np.meshgrid(x_values, y_values)
     r = np.sqrt(x ** 2 + y ** 2)
     r_max = r_0  # Maximum radius at the current depth
     intensity = np.zeros_like(r)
     mask = r <= r_max  # Only calculate intensity within the cone
-    intensity[mask] = (P * eta / (np.pi * r_max ** 2)) * (1 - r[mask] / r_max)
+    intensity[mask] = (P * eta / (np.pi * r_max ** 2)) * np.exp(-C * (r[mask] / r_max))
     return intensity
 
 # Generate x and y values for 2D plot
