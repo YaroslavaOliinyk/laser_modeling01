@@ -23,7 +23,7 @@ def conical_intensity(A, P, k, eta, r_0, C, x_values, y_values, z_depth, z_max):
     x, y = np.meshgrid(x_values, y_values)
     r = np.sqrt(x ** 2 + y ** 2)
     F = 1.0
-    attenuation = 1-(z_depth/z_max)
+    attenuation = np.exp(-C * (z_depth / z_max) ** k)
     intensity = attenuation * F * ((A ** (1 / k) * k * P * eta) / (np.pi * r_0 ** 2 * math.gamma(1 / k))) * np.exp(-C * (r ** 2 / r_0 ** 2) ** k)
     return intensity
 
