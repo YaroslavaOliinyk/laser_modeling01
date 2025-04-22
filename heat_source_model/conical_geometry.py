@@ -27,7 +27,7 @@ def conical_intensity(A, P, k, eta, r_0, C, x_values, y_values):
     return intensity
 
 # Generate x and y values for 2D plot
-x_values = np.linspace(-50, 50, 10)
+x_values = np.linspace(-50, 50, 1000)
 y_values = np.linspace(-50, 50, 100)
 
 # Calculate intensity at z=0 for consistent color scaling
