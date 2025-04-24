@@ -7,7 +7,7 @@ st.title('3D Visualization of Conical Heat Source Model')
 
 # Sidebar parameters
 st.sidebar.header('Parameters')
-r_0_surface = st.sidebar.slider('r₀ (Surface Beam Radius, μm)', min_value=20.0, max_value=500.0, value=25.0, step=0.01)
+r_0_surface = st.sidebar.slider('r₀ (Surface Beam Radius, μm)', min_value=20.0, max_value=100.0, value=25.0, step=0.01)
 theta = st.sidebar.slider('θ (Cone Half-Angle, degrees)', min_value=0.1, max_value=45.0, value=5.0, step=0.1)
 colormap = st.sidebar.selectbox('Colormap', ['rainbow', 'jet', 'hsv', 'turbo'], index=0)
 z_max = st.sidebar.slider('Maximum Depth (z, μm)', min_value=50.0, max_value=100.0, value=100.0, step=1.0)
