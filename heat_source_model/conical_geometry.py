@@ -1,20 +1,14 @@
 import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
-import math
 
 # Title
 st.title('3D Visualization of Conical Heat Source Model')
 
 # Sidebar parameters
 st.sidebar.header('Parameters')
-A = st.sidebar.slider('A', min_value=0.00001, max_value=5.0, value=2.0, step=0.0001)
-P = st.sidebar.slider('P (Power, W)', min_value=1, max_value=5000, value=250, step=1)
-k = st.sidebar.slider('k', min_value=0.1, max_value=10.0, value=1.0, step=0.1)
-eta = st.sidebar.slider('η (Efficiency)', min_value=0.0, max_value=1.0, value=1.0, step=0.01)
 r_0_surface = st.sidebar.slider('r₀ (Surface Beam Radius, μm)', min_value=20.0, max_value=500.0, value=25.0, step=0.01)
 theta = st.sidebar.slider('θ (Cone Half-Angle, degrees)', min_value=0.1, max_value=45.0, value=5.0, step=0.1)
-C = st.sidebar.slider('C', min_value=0.1, max_value=4.0, value=2.0, step=0.1)
 colormap = st.sidebar.selectbox('Colormap', ['rainbow', 'jet', 'hsv', 'turbo'], index=0)
 z_max = st.sidebar.slider('Maximum Depth (z, μm)', min_value=50.0, max_value=1000.0, value=100.0, step=1.0)
 
@@ -30,13 +24,13 @@ x_values = np.linspace(-50, 50, 100)
 y_values = np.linspace(-50, 50, 100)
 
 # Calculate intensity at z=0 for consistent color scaling
-I0 = 1.0  # Peak intensity (you can make this adjustable via a slider)
+I0 = 1.0  # Peak intensity (you can make this adjustable via a slider if needed)
 intensity_at_z0 = conical_intensity(I0, r_0_surface, x_values, y_values)
 globalmax_intensity = np.max(intensity_at_z0)
 
 # Interactive 3D Surface Plot at Selected Depth
 st.write("### 3D Surface Plot at Selected Depth")
-z_selected = st.slider('Select z-depth (μm)', min_value=0.0, max_value=z_max, value=z_max/2, step=1.0)
+z_selected = st.slider('Select z-depth (μm)', min_value=0.0, max_value=z_max, value=z_max / 2, step=1.0)
 
 # Compute r(z) at selected z
 r_0_at_z = r_0_surface + z_selected * np.tan(np.deg2rad(theta))
