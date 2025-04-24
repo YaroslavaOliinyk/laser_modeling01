@@ -18,12 +18,11 @@ C = st.sidebar.slider('C', min_value=0.1, max_value=4.0, value=2.0, step=0.1)
 colormap = st.sidebar.selectbox('Colormap', ['rainbow', 'jet', 'hsv', 'turbo'], index=0)
 z_max = st.sidebar.slider('Maximum Depth (z, μm)', min_value=50.0, max_value=1000.0, value=100.0, step=1.0)
 
-# Function to calculate 2D intensity distribution
-def super_gaussian_intensity(A, P, k, eta, r_0, C, x_values, y_values):
+# Function to calculate 2D intensity distribution for conical profile
+def conical_intensity(I0, r_0, x_values, y_values):
     x, y = np.meshgrid(x_values, y_values)
     r = np.sqrt(x ** 2 + y ** 2)
-    F = 1.0
-    intensity = F * ((A ** (1 / k) * k * P * eta) / (np.pi * r_0 ** 2 * math.gamma(1 / k))) * np.exp(-C * (r ** 2 / r_0 ** 2) ** k)
+    intensity = np.where(r <= r_0, I0 * (1 - r / r_0), 0)
     return intensity
 
 # Generate x and y values for 2D plot
@@ -31,16 +30,17 @@ x_values = np.linspace(-50, 50, 100)
 y_values = np.linspace(-50, 50, 100)
 
 # Calculate intensity at z=0 for consistent color scaling
-intensity_at_z0 = super_gaussian_intensity(A, P, k, eta, r_0_surface, C, x_values, y_values)
+I0 = 1.0  # Peak intensity (you can make this adjustable via a slider)
+intensity_at_z0 = conical_intensity(I0, r_0_surface, x_values, y_values)
 globalmax_intensity = np.max(intensity_at_z0)
 
-# Interactive 3D Surface Plot at Selected z
+# Interactive 3D Surface Plot at Selected Depth
 st.write("### 3D Surface Plot at Selected Depth")
 z_selected = st.slider('Select z-depth (μm)', min_value=0.0, max_value=z_max, value=z_max/2, step=1.0)
 
 # Compute r(z) at selected z
 r_0_at_z = r_0_surface + z_selected * np.tan(np.deg2rad(theta))
-intensity_at_z = super_gaussian_intensity(A, P, k, eta, r_0_at_z, C, x_values, y_values)
+intensity_at_z = conical_intensity(I0, r_0_at_z, x_values, y_values)
 
 # Create 3D surface plot
 fig = go.Figure(data=[go.Surface(z=intensity_at_z, x=x_values, y=y_values, colorscale=colormap, cmin=0, cmax=globalmax_intensity)])
