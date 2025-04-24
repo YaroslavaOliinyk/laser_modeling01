@@ -25,7 +25,8 @@ def conical_intensity(A, P, k, eta, r_0, C, x_values, y_values):
     r_max = r_0  # Maximum radius at the current depth
     intensity = np.zeros_like(r)
     mask = r <= r_max  # Only calculate intensity within the cone
-    intensity[mask] = (P * eta / (np.pi * r_max ** 2)) * np.exp(-C * (r[mask] / r_max))
+    #intensity[mask] = (P * eta / (np.pi * r_max ** 2)) * np.exp(-C * (r[mask] / r_max))
+    intensity[mask] = (P * eta / (np.pi * r_max ** 2)) * np.exp(-C * (r[mask] / r_max)**2)
     return intensity
 
 # Generate x and y values for 2D plot
