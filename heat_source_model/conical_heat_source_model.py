@@ -166,14 +166,14 @@ fig_line.update_layout(
     ),
     xaxis=dict(
         title='<b>Depth (z, μm)</b>',
-        tickfont=dict(size=18),
+        titlefont=dict(size=18),
         gridcolor='#EAEAEA',
         linecolor='#B0B0B0',
         showgrid=True
     ),
     yaxis=dict(
         title='<b>Intensity (W/μm²)</b>',
-        tickfont=dict(size=18),
+        titlefont=dict(size=18),
         gridcolor='#EAEAEA',
         linecolor='#B0B0B0',
         showgrid=True,
